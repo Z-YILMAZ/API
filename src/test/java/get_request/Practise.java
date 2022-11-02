@@ -1,41 +1,38 @@
 package get_request;
 
 
-import io.restassured.http.ContentType;
+import base_urls.JsonplaceholderBaseUrl;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
 
-public class Practise extends base_urls.RestfulBaseUrl {
-/*
-     /*
-        Given
-            https://restful-booker.herokuapp.com/booking?firstname=Almedin&lastname=Alikadic
-        When
-            User sends get request to the URL
-        Then
-            Status code is 200
-	  	And
-	  		Among the data there should be someone whose firstname is "Almedin" and lastname is "Alikadic"
 
-     */
+public class Practise extends JsonplaceholderBaseUrl {
 
     @Test
-    public void get04() {
+    public void get09() {
+        spec.pathParams("first","todos","second",2);
 
-        spec.pathParam("first","booking").
-                queryParams("firstname","Almedin","lastname","Alicadic");
+        Map<String,Object> expectedData = new HashMap<>();
+        expectedData.put("userId",1);
+        expectedData.put("id",2);
+        expectedData.put("title","quis ut nam facilis et officia qui");
+        expectedData.put("completed",false);
+        System.out.println("expectedData"+ expectedData);
 
-        Response response = given().spec(spec).when().get("/{first}");
+        Response response = given().spec(spec).when().get("/{first}/{second}");
         response.prettyPrint();
 
-        response.then().
-                assertThat().
-                statusCode(200).
-                contentType(ContentType.JSON).
-                body("firstname",hasItem("Almedin"),"lastname",hasItem("Alicadic"));
+        Map<String,Object> actualData= response.as(HashMap.class);
+        System.out.println("actualData"+ actualData);
+        assertEquals(expectedData.get("userId"),actualData.get("userId"));
+
+
+
 
 
     }
