@@ -1,20 +1,14 @@
 package get_request;
 
 
-import base_url.RestfulBaseUrl;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.Argument;
-import io.restassured.specification.RequestSpecification;
-import org.hamcrest.Matcher;
 import org.junit.Test;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class Practise extends base_url.RestfulBaseUrl {
+public class Practise extends base_urls.RestfulBaseUrl {
 /*
      /*
         Given
